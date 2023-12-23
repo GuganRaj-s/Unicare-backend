@@ -6,17 +6,13 @@
         content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#000000">
     <title>{{ config('app.apname') }}</title>
-    <link rel="icon" type="image/png" href="{{ asset('website/img/favicon.png') }}" sizes="32x32">
+    <!--link rel="icon" type="image/png" href="{{ asset('website/img/favicon.png') }}" sizes="32x32"-->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}?V={{ config('app.version')}}">
 </head>
 
 <body>
 
-    <!-- loader -->
-    <div id="loader">
-        <div class="spinner-grow text-success" role="status"></div>
-    </div>
-    <!-- * loader -->
+
     <!-- App Header Start -->
     <div class="appHeader bg-primary text-light">
         <div class="left">
