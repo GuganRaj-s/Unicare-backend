@@ -1,12 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Operator;
-use App\ViewTransaction;
-use App\ViewUserBalance;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\OperatorController;
-use App\Http\Controllers\TransactionController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
