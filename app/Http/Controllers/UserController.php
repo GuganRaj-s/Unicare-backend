@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\User;
-use App\ViewUser;
 use App\Role;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;

@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'email', 'password', 'user_identifier', 'role_id', 'parent_id', 'username', 'mobile', 'doj', 'dob', 'gender', 'deposit_amount', 'subdistributor_fees','retailer_fees', 'gst_number','pan_no', 'aadhar_no','agency_name', 'address','allowed_device', 'client_limit','retailer_margin_limit', 'payment_request','money_request', 'profile_image', 'allowed_ip', 'user_status', 'distributor_id', 'subdistributor_id', 'is_active', 'created_by', 'updated_by', 'api_token'
+        'id', 'first_name', 'middle_name', 'last_name', 'full_name', 'email', 'password', 'username', 'role_id', 'branch_id', 'mobile', 'emp_doj', 'emp_out', 'gender_id', 'department_id', 'job_title_id','city_id', 'region_id','country_id', 'address_line1','address_line2', 'profile_img','digital_signature', 'user_status','account_status', 'is_active', 'created_at', 'updated_at', 'created_by', 'updated_by', 'api_token'
     ];
 
     /**
