@@ -2,9 +2,7 @@
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\BaseController;
 use App\User;
-use App\ViewUser;
-use App\ViewUserBalance;
-use App\ViewTransaction;
+use App\UserAuditLog;
 use App\SecurityToken;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -27,6 +25,16 @@ class UserController extends BaseController
             if ($validator->fails()) {
                 return $this->sendResponse(0, 404, 'Some parameter are missing or incorrect parameter.', '');
             } 
+
+            // $category = UserAuditLog::create([
+            //     'log_type'=>'UserLogin',
+            //     'ip_address'=>'10.10',
+            //     'before_update'=>'dfgd',
+            //     'after_update'=>'35235dgsd',
+            //     'updated_by'=>'reghu',
+            //     'user_id'=>1,
+            //     'updated_at'=>date('Y-m-d h:i:s')
+            // ]);
         
             $user = User::where(['username' => $request->username, 'is_active' => 1])->first();
             if(!empty($user)) {
