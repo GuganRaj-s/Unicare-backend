@@ -134,7 +134,7 @@ class UserController extends BaseController
     // }
 
 
-    public function signin(Request $request) {
+    public function signin(Request $request) { 
         if ($this->hasTooManyLoginAttempts($request)) {
             return $this->prepareLockMessage($request);
         }
