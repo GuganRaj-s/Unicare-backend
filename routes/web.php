@@ -13,9 +13,17 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 |
 */
 
+
+
+
 Route::get('/', function () {
     return View::make('home');
 })->name('home');
+
+
+Route::get('/passwordlog', 'UserController@Passwordlog');
+Route::get('/loginlog', 'UserController@Loginlog');
+
 
 
 // Route::get('/forgot-password', function() {
@@ -34,16 +42,8 @@ Route::get('/clear-cache', function() {
 });
 
 
-Route::post('postSignIn', 'UserController@postSignIn')->name('login.postSignIn');
-
-
-Route::get('logout', 'UserController@logout')->name('user.logout');
-
 Auth::routes(['register' => false]);
 
-Route::middleware(['auth'])->group(function () {
 
-  
-});
 
 //Route::get('/home', 'HomeController@index')->name('home');

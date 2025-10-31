@@ -80,11 +80,10 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception) 
     {
         if ($request->expectsJson()) {
-            Log::debug("Unauthorized User - Invalid Token :: ".$request);
             return response()->json(['status' => 2, 'message' => 'Unauthorized User - Invalid Token'], 401);
         }
 
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 
 

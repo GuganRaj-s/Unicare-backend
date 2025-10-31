@@ -10,4 +10,8 @@ class UserAuditLog extends Model
     protected $fillable = [
          'log_type', 'ip_address', 'before_update', 'after_update', 'updated_by', 'user_id', 'updated_at', 'created_at'
     ];
+
+    protected $casts = [
+        'created_at' => 'date:d-m-Y h:i:s',
+    ];
 }

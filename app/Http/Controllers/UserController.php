@@ -1,124 +1,67 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\User;
-use App\Role;
-use Illuminate\Support\Str;
+
 use Illuminate\Http\Request;
+use App\UserLog;
+use App\UserAuditLog;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-
+use Illuminate\Validation\ValidationException;
+use \Validator;
+use \stdClass;
+use DateTime;
+use DateInterval;
+use Illuminate\Support\Facades\Artisan;
 
 class UserController extends Controller
 {
-
-
-    public function logout()
+    public function clearLaravelCache()
     {
-        Auth::logout();
-        return redirect('/home');
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('config:cache');
+        return response()->json(['status' => 1, 'message' => 'Config and cache cleared']);
     }
-
-
-    
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function Passwordlog(Request $request)
     {
-        return view('user.index');
+        $user_id    = $_GET['uid'];
+        $from_date  = $_GET['fdate'];
+        $end_date   = $_GET['tdate'];
+
+        $from_date = date("Y-m-d 00:00:00", strtotime($from_date)); 
+        $end_date = date("Y-m-d 23:59:59", strtotime($end_date)); 
+
+        //$logs =  DB::connection('second_db')->select("SELECT id,ip_address,after_update,user_id,created_at FROM user_audit_logs WHERE user_id = $user_id AND log_type = 'UserPass' AND created_at >= date('$from_date') AND created_at <= date('$end_date')  ORDER BY id DESC");
+
+        $logs =  UserLog::SELECT('id','ip_address','user_id','created_at')
+                ->WHERE(['user_id' => $user_id, 'action_type' => 'Password']) 
+                ->whereBetween('created_at', [$from_date, $end_date])
+                ->orderBy('id', 'DESC')
+                ->limit(50)->get();
+
+        return view('passlog',['logs' => $logs]);
     }
 
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function Loginlog(Request $request)
     {
-        //
+        $user_id    = $_GET['uid'];
+        $from_date  = $_GET['fdate'];
+        $end_date   = $_GET['tdate'];
+
+        $from_date = date("Y-m-d 00:00:00", strtotime($from_date)); 
+        $end_date = date("Y-m-d 23:59:59", strtotime($end_date)); 
+
+        //$logs =  DB::connection('second_db')->select("SELECT id,ip_address,after_update,user_id,created_at FROM user_audit_logs WHERE user_id = $user_id AND log_type = 'UserPass' AND created_at >= date('$from_date') AND created_at <= date('$end_date')  ORDER BY id DESC");
+
+        $logs =  UserAuditLog::SELECT('id','ip_address','before_update', 'after_update', 'updated_by', 'user_id')
+                ->WHERE(['user_id' => $user_id, 'log_type' => 'UserLogin']) 
+                ->whereBetween('created_at', [$from_date, $end_date])
+                ->orderBy('id', 'DESC')
+                ->limit(50)->get();
+
+        return view('loginlog',['logs' => $logs]);
     }
-
-    
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
-    }
-
-    
-
-
-    /**
-     * Validate password entry
-     *
-     * @param array $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    public function validatePasswords(array $data)
-    {
-        $messages = [
-            'new_password.required' => 'Please enter a new password',
-            'new_password-confirmation.not_in' => 'Sorry, common passwords are not allowed. Please try a different new password.'
-        ];
-
-        $validator = Validator::make($data, [
-            'new_password' => ['required', 'same:new_password', 'min:8', Rule::notIn($this->bannedPasswords())],
-            'new_password-confirmation' => 'required|same:new_password',
-        ], $messages);
-
-        return $validator;
-    }
-
-    /**
-     * Get an array of all common passwords which we don't allow
-     *
-     * @return array
-     */
-    public function bannedPasswords(){
-        return [
-            'password', '12345678', '123456789', 'baseball', 'football', 'jennifer', 'iloveyou', '11111111', '222222222', '33333333', 'qwerty123'
-        ];
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-
-
 }

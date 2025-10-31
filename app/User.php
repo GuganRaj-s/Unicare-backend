@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'first_name', 'middle_name', 'last_name', 'full_name', 'email', 'password', 'username', 'role_id', 'branch_id', 'mobile', 'emp_doj', 'emp_out', 'gender_id', 'department_id', 'job_title_id','city_id', 'region_id','country_id', 'address_line1','address_line2', 'profile_img','digital_signature', 'user_status','account_status', 'is_active', 'created_at', 'updated_at', 'created_by', 'updated_by', 'api_token'
+         'id', 'title_id', 'first_name', 'middle_name', 'last_name', 'full_name', 'current_email', 'current_mobile', 'current_phone', 'username', 'password', 'hospital_detail_id', 'department_id', 'role_id', 'job_title_id', 'current_city_id', 'current_region_id', 'current_country_id', 'gender_id', 'nationality_id', 'current_address_line', 'perm_address_line', 'emp_doj', 'emp_out', 'appt_interval', 'selected_color', 'view_other_doctor_appt', 'view_in_appt', 'short_name', 'dob', 'marital_status_id', 'religion_id', 'father_or_Husband', 'doc_qualification', 'doc_profile_id', 'current_address_postbox', 'perm_address_postbox', 'perm_country_id', 'perm_city_id', 'perm_region_id', 'perm_email', 'perm_mobile', 'perm_phone', 'emp_code', 'contract_no', 'offer_no', 'location_id', 'visa_type_id', 'ledger_no', 'grade', 'sponsor', 'accessCard_no', 'scheduler_access', 'insurance_card', 'accomodation', 'mother_name', 'qualification_id', 'profile_img', 'signature1', 'signature2', 'signature3', 'first_login', 'user_status', 'account_status', 'is_active', 'api_token', 'created_at', 'created_by', 'updated_at', 'updated_by'
     ];
 
     /**

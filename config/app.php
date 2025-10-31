@@ -15,6 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'UniCare'),
     'apname' => env('APP_APNAME', 'UniCare'),
+    'image_path' => env('IMAGE_PATH', 'http://api.unicaredev.in/'),
 
     /*
     |--------------------------------------------------------------------------
